@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171411">
+<title>The Polly Baker Conspiracy | American Confidence Quest</title>
+<style>
+:root{
+ --ink:#211b16;--muted:#786d5e;--paper:#f3ead8;--paper2:#e8dcc4;--cream:#fffaf0;
+ --rust:#9a452d;--gold:#b58b4c;--line:#cbb99b;--green:#45634f;--shadow:0 18px 48px #160f0a25;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#171411;color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+button,input{font:inherit}
+a{color:var(--rust)}
+.topbar{position:sticky;top:0;z-index:20;background:#171411ed;color:#f7ecd7;border-bottom:1px solid #594b3b;backdrop-filter:blur(12px)}
+.topbar-inner{max-width:1180px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#d8bd8a}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav button{border:1px solid #695943;background:transparent;color:#eadcc4;padding:8px 10px;border-radius:3px;cursor:pointer;font-size:12px}
+.nav button.active,.nav button:hover{background:var(--gold);color:#1d1710;border-color:var(--gold)}
+main{max-width:1180px;margin:0 auto;padding:26px 22px 70px}
+.screen{display:none;animation:appear .3s ease}
+.screen.active{display:block}
+@keyframes appear{from{opacity:.35;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{min-height:500px;display:grid;grid-template-columns:1.02fr .98fr;background:var(--paper);box-shadow:var(--shadow);overflow:hidden}
+.hero-copy{padding:clamp(28px,5vw,66px);display:flex;flex-direction:column;justify-content:center}
+.kicker{font:700 11px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--rust)}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(42px,6vw,76px);line-height:.98;margin:18px 0;color:#261d16;font-weight:normal}
+h2{font-size:clamp(30px,4vw,45px);font-weight:normal;line-height:1.05;margin-bottom:12px}
+h3{font-size:21px;font-weight:normal;margin-bottom:10px}
+.lede{font-size:18px;line-height:1.65;color:#554a3d;max-width:590px}
+.hero-art{min-height:360px;background:#39291c;position:relative}
+.hero-art img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.hero-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#21170d25,transparent 45%),linear-gradient(0deg,#17110c55,transparent 45%)}
+.hero-stamp{position:absolute;right:24px;bottom:22px;z-index:1;border:2px solid #e7d2a7;color:#f7e7c6;padding:10px 14px;transform:rotate(-7deg);font:700 11px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.action{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;background:var(--rust);color:#fff8ec;padding:13px 19px;cursor:pointer;text-decoration:none;font:700 12px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;transition:.2s}
+.action:hover{background:#71301f;transform:translateY(-1px)}
+.action.secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.action.secondary:hover{background:#e7dac2}
+.hero .action{align-self:flex-start;margin-top:14px}
+.paper{background:var(--paper);padding:clamp(24px,4vw,48px);box-shadow:var(--shadow);border:1px solid #d5c4a7}
+.paper.narrow{max-width:850px;margin:20px auto}
+.stage-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px}
+.stage-num{font:700 11px Arial,sans-serif;letter-spacing:.18em;color:var(--rust);text-transform:uppercase}
+.stage-name{font-size:clamp(29px,4vw,43px);font-weight:normal;margin:7px 0 0}
+.seal{border:1px solid var(--rust);color:var(--rust);padding:9px 12px;font:700 10px Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase;transform:rotate(3deg);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.callout{background:#e9ddc7;border-left:3px solid var(--gold);padding:17px 19px;line-height:1.6}
+.evidence{background:#fff9ed;border:1px solid #d8c8aa;padding:20px;box-shadow:0 5px 18px #4c392015}
+.evidence .label{font:700 10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.16em;color:var(--rust);margin-bottom:10px}
+blockquote{font-size:21px;line-height:1.5;margin:12px 0;color:#3d3024}
+.small{font-size:13px;color:var(--muted);line-height:1.6}
+.bodycopy{font-size:16px;line-height:1.75;color:#41372d}
+.rule{height:1px;background:var(--line);margin:25px 0}
+.question{background:#fdf7eb;border:1px solid #d6c4a4;padding:20px;margin:18px 0}
+.question > .prompt{display:block;font-weight:bold;margin:0 0 14px;line-height:1.5}
+.question input:not([type="radio"]){width:100%;padding:12px;border:1px solid #bba98a;background:#fffdf7;color:var(--ink);border-radius:2px}
+.feedback{min-height:24px;margin-top:9px;font:700 12px Arial,sans-serif;color:var(--rust)}
+.feedback.good{color:var(--green)}
+.mission{position:relative;border-top:4px solid var(--rust);padding-top:22px}
+.mission-tag{font:700 10px Arial,sans-serif;letter-spacing:.18em;color:var(--rust);margin-bottom:13px}
+.reveal{margin-top:20px;padding:22px;background:#e6dcc5;border:2px solid var(--green);text-align:center;animation:appear .25s ease}
+.reveal[hidden]{display:none}
+.reveal-label{font:700 10px Arial,sans-serif;letter-spacing:.2em;color:var(--green)}
+.passcode{font:700 clamp(27px,4vw,42px) Arial,sans-serif;letter-spacing:.12em;color:#263d2c;margin:12px 0 18px;overflow-wrap:anywhere}
+
+.gate{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.gate input{flex:1;min-width:190px}
+.code-entry{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.code-entry input{flex:1;min-width:190px;max-width:360px;padding:12px;border:1px solid #bba98a;background:#fffdf7;color:var(--ink);font:700 16px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.code-entry .feedback{flex-basis:100%;text-align:center}
+.gate button{white-space:nowrap}
+.action:disabled{opacity:.65;cursor:default;transform:none}
+.progress{display:flex;gap:6px;margin:20px 0 28px}
+.progress span{height:5px;flex:1;background:#d7c9b1}
+.progress span.done{background:var(--rust)}
+.fileline{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #ddd0b8}
+.fileicon{width:38px;height:42px;display:grid;place-items:center;background:#e6d8bf;color:var(--rust);font:700 11px Arial}
+.fileline strong{display:block;font-size:14px}
+.fileline small{font-size:12px;color:var(--muted)}
+.options{display:grid;gap:9px}
+.ranking-list{display:grid;gap:10px;margin:16px 0}
+.rank-row{display:grid;grid-template-columns:minmax(0,1fr) 100px;gap:14px;align-items:center;background:#fff9ed;border:1px solid #d6c4a4;padding:13px;line-height:1.5}
+.rank-row select{width:100%;padding:10px;border:1px solid #bba98a;background:#fffdf7;color:var(--ink);font:700 15px Arial,sans-serif}
+.rank-row b{color:#6e3828}
+@media(max-width:520px){.rank-row{grid-template-columns:1fr 84px;gap:8px;padding:10px}.rank-row select{padding:9px}}
+.option{display:flex;gap:10px;align-items:flex-start;background:#fff9ed;border:1px solid #d6c4a4;padding:12px;cursor:pointer}
+.option input{margin-top:3px;accent-color:var(--rust)}
+.option:hover{border-color:var(--rust)}
+.matrix{width:100%;border-collapse:collapse;background:#fff9ed;font-size:14px;line-height:1.5}
+.matrix th,.matrix td{border:1px solid #d4c3a4;padding:12px;text-align:left;vertical-align:top}
+.matrix th{background:#e6d9c1;font:700 10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.1em}
+.notice{font-size:12px;color:#6d5d49;line-height:1.6;border-top:1px solid var(--line);padding-top:13px;margin-top:22px}
+.footer{color:#a99b85;text-align:center;font:11px Arial,sans-serif;letter-spacing:.08em;padding:25px 12px}
+.hidden{display:none!important}
+.badge-preview{max-width:620px;margin:22px auto;background:#fff7e8;border:8px double #a77c3e;padding:32px;text-align:center;box-shadow:var(--shadow);color:#35281c}
+.badge-preview .sealbig{font-size:50px}
+.badge-preview h3{font-size:32px;margin:10px 0}
+.badge-preview .award{font:700 11px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#98652d}
+.badge-preview .name{font-size:20px;border-bottom:1px solid #bca77f;padding:14px 0;margin:18px auto;max-width:380px}
+.badge-preview .date{font:11px Arial,sans-serif;color:#7e6b52}
+.mapcard{background:#e6dac2;border:1px solid #c9b693;padding:22px;position:relative;overflow:hidden;min-height:190px}
+.route{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;margin:24px 0}
+.route:before{content:"";position:absolute;left:7%;right:7%;top:12px;border-top:2px dashed #9b7850}
+.stop{position:relative;z-index:1;text-align:center;font:700 10px Arial,sans-serif;color:#594936;max-width:110px}
+.dot{display:block;margin:0 auto 8px;width:25px;height:25px;border-radius:50%;background:var(--rust);border:5px solid #f5ead5;box-shadow:0 0 0 1px var(--rust)}
+@media(max-width:760px){.hero,.grid2{grid-template-columns:1fr}.hero-art{min-height:260px;order:-1}.grid3{grid-template-columns:1fr}.stage-head{display:block}.seal{display:inline-block;margin-top:15px}.nav{display:none}.topbar-inner{padding:12px 16px}main{padding:15px 12px 45px}.matrix{font-size:12px}.matrix th,.matrix td{padding:8px}}
+@media print{body{background:white}.topbar,.footer,.no-print{display:none!important}main{padding:0}.screen{display:none!important}#certificate-screen{display:block!important}.badge-preview{box-shadow:none;margin:20px auto}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="topbar-inner">
+  <div class="brand">The American Confidence Quest · Group 3</div>
+  <nav class="nav" aria-label="Quest checkpoints">
+   <button data-go="home" class="active">Briefing</button>
+   <button data-go="stage1">01 Rub</button><button data-go="stage2">02 Disguise</button>
+   <button data-go="stage3">03A Trial</button><button data-go="stage4">03B Trial</button>
+   <button data-go="stage5">04 Sting</button><button data-go="stage6">05 Getaway</button>
+  </nav>
+ </div>
+</header>
+<main>
+<section class="screen active" id="home">
+ <div class="hero">
+  <div class="hero-copy">
+   <div class="kicker">A colonial courtroom mystery · 1747</div>
+   <h1>The Polly Baker<br><i>Conspiracy</i></h1>
+   <p class="lede">Six missions. One crooked courtroom. Follow the evidence, expose the disguise, and turn the verdict around.</p>
+   <p class="small">Solve six short missions. Each correct finding reveals a passcode and opens the next file.</p>
+   <button class="action" onclick="go('stage1')">Enter the courtroom <span>→</span></button>
+  </div>
+  <div class="hero-art"><img src="polly_baker_courtroom.png" alt="Dramatic imagined illustration of Polly Baker facing colonial magistrates in a candlelit courtroom"><div class="hero-stamp">Court record · sealed</div></div>
+ </div>
+ <div class="progress" aria-label="Quest progress"><span id="p1"></span><span id="p2"></span><span id="p3"></span><span id="p4"></span><span id="p5"></span><span id="p6"></span></div>
+ <div class="grid3">
+  <div class="evidence"><div class="label">Your assignment</div><h3>Find the hypocrisy</h3><p class="small">Polly is punished for bearing children outside marriage. What happens to the fathers?</p></div>
+  <div class="evidence"><div class="label">Your weapon</div><h3>Deadpan irony</h3><p class="small">Franklin lets a seemingly earnest speaker make the authorities' own assumptions look absurd.</p></div>
+  <div class="evidence"><div class="label">Your objective</div><h3>Reverse the verdict</h3><p class="small">Complete all six missions to earn the Master Confidence Operator certificate.</p></div>
+ </div>
+</section>
+
+<section class="screen" id="stage1">
+ <div class="paper">
+  <div class="stage-head"><div><div class="stage-num">Checkpoint 1 · Stage 1 — The Rub</div><h2 class="stage-name">The Legal Trap at Connecticut Court</h2></div><div class="seal">Exhibit A · Indictment</div></div>
+  <div class="grid2">
+   <div>
+    <p class="bodycopy">Connecticut, 1747. The court calls Polly Baker before the bench. The charge: having children outside marriage, now for the fifth time. The magistrates present the case as a defense of public morality.</p>
+    <p class="bodycopy">But the indictment has a missing half. The children have fathers. The legal and social burden falls on Polly while the men who helped create the situation escape the same punishment.</p>
+    <div class="callout"><b>Case file:</b> The court treats motherhood outside marriage as a public offense, yet the men responsible are not being prosecuted alongside Polly. The system's moral language conceals a gendered double standard.</div>
+   </div>
+   <div class="evidence">
+    <div class="label">The charge sheet</div>
+    <div class="fileline"><div class="fileicon">1747</div><div><strong>Colony of Connecticut</strong><small>Colonial courtroom · dramatized scene</small></div></div>
+    <div class="fileline"><div class="fileicon">V</div><div><strong>Fifth accusation</strong><small>Repeated prosecution of Polly Baker</small></div></div>
+    <div class="fileline"><div class="fileicon">?</div><div><strong>Missing defendants</strong><small>The fathers are absent from the indictment</small></div></div>
+    <p class="small" style="margin-top:14px">The American Confidence Matrix identifies the flawed baseline as a legal double standard: unwed mothers are prosecuted while male fathers go free.</p>
+   </div>
+  </div>
+  <div class="question mission" data-mission="1">
+   <div class="mission-tag">MISSION 01 · IDENTIFY THE TARGET</div>
+   <p class="prompt">Who is punished by the court for having children outside marriage?</p>
+   <input id="answer1" type="text" autocomplete="off" placeholder="Type the person's name" aria-label="Name of the person punished">
+   <button class="action" onclick="checkTextAnswer('answer1',['polly baker'],'f1','Correct. Polly Baker is punished while the fathers escape equivalent consequences.','stage2')">Submit answer</button>
+   <div class="feedback" id="f1" aria-live="polite"></div>
+   <div class="reveal" id="reveal1" hidden><div class="reveal-label">IDENTITY CONFIRMED</div><div class="passcode">POLLY BAKER</div><button class="action" onclick="go('stage2')">Continue to Mission 02 →</button></div>
+  </div>
+  
+ </div>
+</section>
+
+<section class="screen" id="stage2">
+ <div class="paper">
+  <div class="stage-head"><div><div class="stage-num">Checkpoint 2 · Stage 2 — The Disguise</div><h2 class="stage-name">The Mask of Mock-Innocence</h2></div><div class="seal">Exhibit B · Identity</div></div>
+  <p class="bodycopy">Who is speaking? Polly Baker appears to be a poor, plain-spoken, pious woman addressing a court. But the voice is a literary disguise. Benjamin Franklin created the fictional speaker and presented the speech in a deadpan style that invites readers to take the performance seriously.</p>
+  <div class="grid2">
+   <div class="evidence">
+    <div class="label">The mask</div>
+    <h3>Polly Baker, the speaker</h3>
+    <p class="small">A seemingly uneducated woman uses the court's own moral and religious vocabulary. Her calm, earnest tone makes the argument more unsettling: she is not openly shouting at the judges; she reasons them into contradiction.</p>
+    <blockquote>“May it please the Honourable Bench to indulge me in a few Words...”</blockquote>
+    <p class="small">Transcribed from the 1747 speech in the National Archives’ Founders Online edition. Franklin’s original capitalization is retained here.</p>
+   </div>
+   <div class="evidence">
+    <div class="label">The author behind the mask</div>
+    <h3>Benjamin Franklin</h3>
+    <p class="small">Franklin's print hoax depends on a gap between the apparent speaker and the actual author. The speaker's apparent innocence is part of the satire, not proof that the text is a real court transcript.</p>
+    <p class="small"><a href="https://founders.archives.gov/documents/Franklin/01-03-02-0057" target="_blank" rel="noopener">Read the full 1747 speech and editorial headnote at Founders Online (National Archives).</a></p>
+    <div class="callout"><b>Matrix connection:</b> The matrix labels Polly a “Yankee Peddler / Masked Underdog” and identifies the weapon as print hoax, deadpan irony, mock-innocence, and common-sense logic against legal hypocrisy.</div>
+   </div>
+  </div>
+  <div class="question mission" data-mission="2">
+   <div class="mission-tag">MISSION 02 · UNCOVER THE DISGUISE</div>
+   <p class="prompt">What is the name of the woman whose voice Franklin uses?</p>
+   <div class="options">
+    <label class="option"><input type="radio" name="q2" value="a"> Polly Baker</label>
+    <label class="option"><input type="radio" name="q2" value="b"> Miss Liberty</label>
+    <label class="option"><input type="radio" name="q2" value="c"> Abigail Adams</label>
+   </div>
+   <button class="action" onclick="checkChoice('q2','a','f2','Correct. Polly Baker is the fictional speaker; Benjamin Franklin is the author.','stage3')">Submit answer</button>
+   <div class="feedback" id="f2" aria-live="polite"></div>
+   <div class="reveal" id="reveal2" hidden><div class="reveal-label">PASSCODE REVEALED · ENTER IT TO UNLOCK THE NEXT FILE</div><div class="passcode">POLLY</div><div class="code-entry"><input id="code2" type="text" autocomplete="off" placeholder="Enter passcode"><button class="action" onclick="unlockWithCode(2,'POLLY','stage3','codeFeedback2')">Unlock file</button><div class="feedback" id="codeFeedback2" aria-live="polite"></div></div></div>
+  </div>
+  
+ </div>
+</section>
+
+<section class="screen" id="stage3">
+ <div class="paper">
+  <div class="stage-head"><div><div class="stage-num">Checkpoint 3 · Stage 3A — Set-Up / Trial of Wits #1</div><h2 class="stage-name">Scriptural Reverse-Logic</h2></div><div class="seal">Exhibit C · Scripture</div></div>
+  <p class="bodycopy">Polly does not reject the court's religious framework. She turns it around. If the community values the biblical command to “increase and multiply,” why is the woman who bears children treated as the criminal? Her argument makes the court's moral logic collide with itself.</p>
+  <div class="evidence">
+   <div class="label">Textual evidence · direct quotation</div>
+   <blockquote>“Can it be a Crime (in the Nature of Things I mean) to add to the Number of the King’s Subjects, in a new Country that really wants People?”</blockquote>
+   <p class="small">Transcribed from the 1747 speech in the National Archives’ Founders Online edition. Franklin’s original capitalization is retained here.</p>
+  </div>
+  <div class="grid2" style="margin-top:22px">
+   <div class="callout"><b>Polly's bait:</b> She frames childbearing as useful to a growing colony and invokes the religious command to multiply. This forces the judges to explain why conduct that produces new subjects deserves punishment.</div>
+   <div class="callout"><b>The mark:</b> A legal authority that claims to defend morality, but whose rules punish the woman while ignoring the fathers' responsibility.</div>
+  </div>
+  <div class="question mission" data-mission="3">
+   <div class="mission-tag">MISSION 03 · DECODE THE ARGUMENT</div>
+   <p class="prompt">Which phrase does Polly turn against the court's reasoning?</p>
+   <div class="options">
+    <label class="option"><input type="radio" name="q3" value="a"> “Life, liberty, and the pursuit of happiness”</label>
+    <label class="option"><input type="radio" name="q3" value="b"> “Increase and multiply”</label>
+    <label class="option"><input type="radio" name="q3" value="c"> “No taxation without representation”</label>
+   </div>
+   <button class="action" onclick="checkChoice('q3','b','f3','Correct. Polly argues that the colony values population growth while punishing her for bearing children.','stage4')">Submit answer</button>
+   <div class="feedback" id="f3" aria-live="polite"></div>
+   <div class="reveal" id="reveal3" hidden><div class="reveal-label">PASSCODE REVEALED · ENTER IT TO UNLOCK THE NEXT FILE</div><div class="passcode">MULTIPLY</div><div class="code-entry"><input id="code3" type="text" autocomplete="off" placeholder="Enter passcode"><button class="action" onclick="unlockWithCode(3,'MULTIPLY','stage4','codeFeedback3')">Unlock file</button><div class="feedback" id="codeFeedback3" aria-live="polite"></div></div></div>
+  </div>
+  
+ </div>
+</section>
+
+<section class="screen" id="stage4">
+ <div class="paper">
+  <div class="stage-head"><div><div class="stage-num">Checkpoint 4 · Stage 3B — Set-Up / Trial of Wits #2</div><h2 class="stage-name">The Judicial Exposé</h2></div><div class="seal">Exhibit D · Conflict</div></div>
+  <p class="bodycopy">The argument becomes personal. Polly reveals that the man who first seduced and abandoned her has since become a magistrate. Crucially, she says she had hoped he would appear that day to moderate the court in her favor. The text does not say he was actually sitting on the bench during this hearing. The institutional hypocrisy remains: he has gained public authority while Polly bears the punishment for their shared history.</p>
+  <div class="evidence">
+   <div class="label">Evidence ledger · as summarized in your Matrix</div>
+   <div class="fileline"><div class="fileicon">01</div><div><strong>The defendant</strong><small>Polly Baker, repeatedly prosecuted</small></div></div>
+   <div class="fileline"><div class="fileicon">02</div><div><strong>The absent partner</strong><small>The man who abandoned her after the first child</small></div></div>
+   <div class="fileline"><div class="fileicon">03</div><div><strong>The institutional conflict</strong><small>He is now a magistrate, but Polly hopes he will appear that day</small></div></div>
+   <p class="small" style="margin-top:14px">The primary text does not name the magistrate. It also says Polly hoped he would appear that day, so this checkpoint asks players to identify his role and the conflict without claiming he was present on the bench.</p>
+  </div>
+  <div class="question mission" data-mission="4">
+   <div class="mission-tag">MISSION 04 · IDENTIFY THE CONNECTION</div>
+   <p class="prompt">What position did the man who first seduced and abandoned Polly later hold?</p>
+   <div class="options">
+    <label class="option"><input type="radio" name="q4" value="a"> Newspaper editor</label>
+    <label class="option"><input type="radio" name="q4" value="b"> Ship captain</label>
+    <label class="option"><input type="radio" name="q4" value="c"> Magistrate</label>
+   </div>
+   <button class="action" onclick="checkChoice('q4','c','f4','Correct. He became a magistrate. Polly hoped he would appear that day to moderate the court in her favor.','stage5')">Submit answer</button>
+   <div class="feedback" id="f4" aria-live="polite"></div>
+   <div class="reveal" id="reveal4" hidden><div class="reveal-label">PASSCODE REVEALED · ENTER IT TO UNLOCK THE NEXT FILE</div><div class="passcode">MAGISTRATE</div><div class="code-entry"><input id="code4" type="text" autocomplete="off" placeholder="Enter passcode"><button class="action" onclick="unlockWithCode(4,'MAGISTRATE','stage5','codeFeedback4')">Unlock file</button><div class="feedback" id="codeFeedback4" aria-live="polite"></div></div></div>
+  </div>
+  <div class="callout"><b>Rhetorical trap:</b> Polly contrasts her punishment with the betrayer’s advancement to magistrate. Her point is not that he is physically judging her that day; it is that the government honors him while punishing her for the consequences of their shared history.</div>
+  
+ </div>
+</section>
+
+<section class="screen" id="stage5">
+ <div class="paper">
+  <div class="stage-head"><div><div class="stage-num">Checkpoint 5 · Stage 4 — The Sting</div><h2 class="stage-name">The Courtroom Collapse</h2></div><div class="seal">Exhibit E · Verdict</div></div>
+  <p class="bodycopy">The trap snaps shut. Polly has used the court's own religious, civic, and moral reasoning to expose the institution's double standard. The hierarchy flips: the defendant has become the sharpest reasoner in the room, and the bench has become the object of scrutiny.</p>
+  <div class="question mission" data-mission="5">
+   <div class="mission-tag">MISSION 05 · REVERSE THE VERDICT</div>
+   <p class="prompt">Put the four moves in Polly's argument in order, from the court's starting position to the contradiction she exposes. Assign each statement a different rank from 1 to 4.</p>
+   <div class="ranking-list">
+    <label class="rank-row"><span><b>The contradiction:</b> the court's standard punishes the person whose actions help achieve the population growth it claims to value.</span><select id="rankA" aria-label="Rank the contradiction"><option value="">Rank…</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+    <label class="rank-row"><span><b>The court's position:</b> Polly is punished for bearing children outside marriage.</span><select id="rankB" aria-label="Rank the court's position"><option value="">Rank…</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+    <label class="rank-row"><span><b>The colony's interest:</b> the colony needs more people and values population growth.</span><select id="rankC" aria-label="Rank the colony's interest"><option value="">Rank…</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+    <label class="rank-row"><span><b>Polly's evidence:</b> having children adds new subjects to the population.</span><select id="rankD" aria-label="Rank Polly's evidence"><option value="">Rank…</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+   </div>
+   <button class="action" onclick="checkRanking()">Submit ranking</button>
+   <div class="feedback" id="f5" aria-live="polite"></div>
+   <div class="reveal" id="reveal5" hidden><div class="reveal-label">PASSCODE REVEALED · ENTER IT TO UNLOCK THE NEXT FILE</div><div class="passcode">REVERSAL</div><div class="code-entry"><input id="code5" type="text" autocomplete="off" placeholder="Enter passcode" aria-label="Mission 5 passcode"><button class="action" onclick="unlockWithCode(5,'REVERSAL','stage6','codeFeedback5')">Unlock file</button><div class="feedback" id="codeFeedback5" aria-live="polite"></div></div></div>
+  </div>
+  <div class="grid2">
+   <div class="callout"><b>Before:</b> The court controls the charge, the language of morality, and the punishment.</div>
+   <div class="callout"><b>After:</b> Polly controls the argument. The judges' double standard becomes the real subject of judgment.</div>
+  </div>
+  
+ </div>
+</section>
+
+<section class="screen" id="stage6">
+ <div class="paper">
+  <div class="stage-head"><div><div class="stage-num">Checkpoint 6 · Stage 5 — The Getaway</div><h2 class="stage-name">The Transatlantic Hoax</h2></div><div class="seal">Exhibit F · Archive</div></div>
+  <p class="bodycopy">The final question is not only what Polly says, but how the speech travels. The National Archives' Founders Online edition identifies the earliest known printing as the London newspaper The General Advertiser on April 15, 1747. The speech spread quickly through other newspapers and magazines. Its fictional status was not widely understood: the text's authorship remained unknown until Franklin's confession was reported in 1788. The escape is the author's: the fictional speaker travels through print while readers mistake the performance for a real case.</p>
+  <div class="mapcard">
+   <div class="label">The route of the printed story · schematic, not a historical map</div>
+   <div class="route"><div class="stop"><span class="dot"></span>Colonial America<br><small>Polly's fictional courtroom</small></div><div class="stop"><span class="dot"></span>Atlantic crossing<br><small>Print circulation</small></div><div class="stop"><span class="dot"></span>London, 1747<br><small>Publication claim in storyboard</small></div></div>
+   <p class="small">The primary-source headnote confirms <i>The General Advertiser</i>, April 15, 1747. It also records that five London newspapers reprinted the speech within a week and that its authorship was still unknown when Raynal used the story in 1770. <a href="https://founders.archives.gov/documents/Franklin/01-03-02-0057" target="_blank" rel="noopener">Open the National Archives’ Founders Online primary-source edition</a>.</p>
+  </div>
+  <div class="question mission" data-mission="6">
+   <div class="mission-tag">MISSION 06 · EXPOSE THE AUTHOR</div>
+   <p class="prompt">Who actually wrote “The Speech of Miss Polly Baker”?</p>
+   <div class="options">
+    <label class="option"><input type="radio" name="q6" value="a"> Thomas Jefferson</label>
+    <label class="option"><input type="radio" name="q6" value="b"> Benjamin Franklin</label>
+    <label class="option"><input type="radio" name="q6" value="c"> Polly Baker</label>
+   </div>
+   <button class="action" onclick="checkChoice('q6','b','f6','Correct. Franklin wrote the speech and used Polly Baker as a fictional speaker.','certificate-screen')">Submit final answer</button>
+   <div class="feedback" id="f6" aria-live="polite"></div>
+   <div class="reveal" id="reveal6" hidden><div class="reveal-label">FINAL PASSCODE REVEALED · ENTER IT TO COMPLETE THE QUEST</div><div class="passcode">FRANKLIN</div><div class="code-entry"><input id="code6" type="text" autocomplete="off" placeholder="Enter final passcode"><button class="action" onclick="unlockWithCode(6,'FRANKLIN','certificate-screen','codeFeedback6')">Claim certificate</button><div class="feedback" id="codeFeedback6" aria-live="polite"></div></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="screen" id="certificate-screen">
+ <div class="paper">
+  <div class="stage-head"><div><div class="stage-num">Ultimate Boon · Quest completed</div><h2 class="stage-name">The Master Confidence Operator</h2></div><div class="seal">Awarded</div></div>
+  <p class="bodycopy" style="text-align:center">For surviving the courtroom, detecting the disguise, decoding the rhetorical trap, and escaping the transatlantic hoax.</p>
+  <div class="badge-preview" id="badge">
+   <div class="award">The American Confidence Quest · Group 3</div>
+   <div class="sealbig">✦ ⚖ ✦</div>
+   <h3>Master Confidence<br>Operator</h3>
+   <div class="award">Certificate of successful deception detection</div>
+   <div class="name" contenteditable="true" id="teamName">Presented to: Enter your team name</div>
+   <p>Having exposed the double standard in <i>The Speech of Polly Baker</i> and survived all six checkpoints.</p>
+   <div class="date" id="awardDate"></div>
+   <div style="margin-top:18px;font-size:12px;letter-spacing:.16em;color:#98652d">THE VERDICT IS REVERSED</div>
+  </div>
+  <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap" class="no-print">
+   <button class="action secondary" onclick="restartQuest()">Replay quest</button>
+  </div>
+ </div>
+</section>
+</main>
+<div class="footer">BENJAMIN FRANKLIN · THE SPEECH OF POLLY BAKER · 1747 · A CLASSROOM LITERARY QUEST</div>
+<script>
+const order=['home','stage1','stage2','stage3','stage4','stage5','stage6','certificate-screen'];
+const unlocked=new Set(['home','stage1']);
+function go(id){
+ if(!order.includes(id)) return;
+ if(id!=='home' && id!=='stage1' && !unlocked.has(id)){
+   const idx=order.indexOf(id);
+   const prev=order[idx-1];
+   if(!unlocked.has(id)){ alert('This mission is locked. Complete the previous mission to continue.'); return; }
+ }
+ document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+ window.location.hash=id;
+ window.scrollTo({top:0,behavior:'smooth'});
+ updateProgress();
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+document.querySelectorAll('.mission button.action').forEach(btn=>btn.dataset.originalText=btn.textContent.trim());
+function checkChoice(group,correct,feedbackId,message,nextId){
+ const selected=document.querySelector('input[name="'+group+'"]:checked');
+ const el=document.getElementById(feedbackId);
+ const mission=el.closest('.mission');
+ const reveal=mission.querySelector('.reveal');
+ if(!selected){el.textContent='Select an answer to continue.';el.className='feedback';return false;}
+ if(selected.value===correct){
+   el.textContent=message;el.className='feedback good';
+   reveal.hidden=false;
+   mission.querySelectorAll('input[type="radio"]').forEach(input=>input.disabled=true);
+   mission.querySelector('button.action').disabled=true;
+   mission.querySelector('button.action').textContent='Finding confirmed';
+   return true;
+ }
+ el.textContent='That is not the evidence we need. Review the file and try again.';el.className='feedback';
+ return false;
+}
+function checkTextAnswer(inputId,accepted,feedbackId,message,nextId){
+ const input=document.getElementById(inputId);
+ const el=document.getElementById(feedbackId);
+ const answer=input.value.trim().toLowerCase().replace(/\s+/g,' ');
+ if(!answer){el.textContent='Enter a name to continue.';el.className='feedback';return false;}
+ if(accepted.includes(answer)){
+   el.textContent=message;el.className='feedback good';
+   unlocked.add(nextId);updateProgress();
+   document.getElementById('reveal1').hidden=false;
+   input.disabled=true;
+   input.nextElementSibling.disabled=true;
+   input.nextElementSibling.textContent='Identity confirmed';
+   return true;
+ }
+ el.textContent='That name does not match the evidence. Check the case file and try again.';el.className='feedback';
+ return false;
+}
+function checkRanking(){
+ const expected={rankA:'4',rankB:'1',rankC:'2',rankD:'3'};
+ const ids=Object.keys(expected);
+ const values=ids.map(id=>document.getElementById(id).value);
+ const feedback=document.getElementById('f5');
+ if(values.some(value=>!value)){
+  feedback.textContent='Assign a rank to all four statements before submitting.';
+  feedback.className='feedback';
+  return false;
+ }
+ if(new Set(values).size!==4){
+  feedback.textContent='Each rank can be used only once. Use 1, 2, 3, and 4 exactly once.';
+  feedback.className='feedback';
+  return false;
+ }
+ const correct=ids.every(id=>document.getElementById(id).value===expected[id]);
+ if(!correct){
+  feedback.textContent='That order does not build the argument correctly. Reconsider the court’s starting position, the colony’s interest, Polly’s evidence, and the contradiction.';
+  feedback.className='feedback';
+  return false;
+ }
+ feedback.textContent='Correct. You reconstructed Polly’s argument and exposed the court’s contradiction.';
+ feedback.className='feedback good';
+ ids.forEach(id=>document.getElementById(id).disabled=true);
+ document.querySelector('#stage5 .mission > button.action').disabled=true;
+ document.querySelector('#stage5 .mission > button.action').textContent='Ranking confirmed';
+ document.getElementById('reveal5').hidden=false;
+ return true;
+}
+
+function unlockWithCode(stage,expected,nextId,feedbackId){
+ const input=document.getElementById('code'+stage);
+ const feedback=document.getElementById(feedbackId);
+ const code=input.value.trim().toUpperCase().replace(/\s+/g,'');
+ if(!code){feedback.textContent='Enter the passcode shown above.';feedback.className='feedback';return false;}
+ if(code===expected){
+   unlocked.add(nextId);updateProgress();
+   feedback.textContent='Passcode accepted. File unlocked.';feedback.className='feedback good';
+   input.disabled=true;
+   input.nextElementSibling.disabled=true;
+   input.nextElementSibling.textContent='Unlocked';
+   setTimeout(()=>go(nextId),500);
+   return true;
+ }
+ feedback.textContent='Incorrect passcode. Check the revealed code and try again.';feedback.className='feedback';
+ return false;
+}
+function updateProgress(){
+ const ids=['stage1','stage2','stage3','stage4','stage5','stage6'];
+ ids.forEach((id,i)=>{const e=document.getElementById('p'+(i+1));if(e)e.classList.toggle('done',unlocked.has(id));});
+}
+function restartQuest(){
+ unlocked.clear();unlocked.add('home');unlocked.add('stage1');
+ document.querySelectorAll('.mission input[type=radio]').forEach(input=>{input.checked=false;input.disabled=false;});
+ document.querySelectorAll('.mission select').forEach(select=>{select.value='';select.disabled=false;});
+ document.querySelectorAll('.mission input[type=text]').forEach(input=>{input.value='';input.disabled=false;});
+ document.querySelectorAll('.mission .feedback').forEach(el=>{el.textContent='';el.className='feedback';});
+ document.querySelectorAll('.mission .reveal').forEach(el=>el.hidden=true);
+ document.querySelectorAll('.code-entry .action').forEach(btn=>{btn.disabled=false;btn.textContent=btn.closest('.mission').dataset.mission==='6'?'Claim certificate':'Unlock file';});
+ document.querySelectorAll('.code-entry .feedback').forEach(el=>{el.textContent='';el.className='feedback';});
+ document.querySelectorAll('.mission button.action').forEach(btn=>{btn.disabled=false;btn.textContent=btn.dataset.originalText||'Submit answer';});
+ updateProgress();go('home');
+}
+function downloadBadge(){
+ const name=(document.getElementById('teamName').innerText||'Quest Team').replace(/[<>]/g,'');
+ const canvas=document.createElement('canvas');canvas.width=1400;canvas.height=950;
+ const c=canvas.getContext('2d');
+ c.fillStyle='#fff7e8';c.fillRect(0,0,1400,950);
+ c.strokeStyle='#a77c3e';c.lineWidth=18;c.strokeRect(28,28,1344,894);
+ c.lineWidth=4;c.strokeRect(48,48,1304,854);
+ c.textAlign='center';c.fillStyle='#98652d';
+ c.font='bold 28px Georgia';c.fillText('THE AMERICAN CONFIDENCE QUEST · GROUP 3',700,145);
+ c.font='90px Georgia';c.fillText('✦  ⚖  ✦',700,300);
+ c.fillStyle='#35281c';c.font='bold 74px Georgia';c.fillText('MASTER CONFIDENCE',700,430);c.fillText('OPERATOR',700,520);
+ c.fillStyle='#98652d';c.font='bold 24px Arial';c.fillText('CERTIFICATE OF SUCCESSFUL DECEPTION DETECTION',700,590);
+ c.fillStyle='#35281c';c.font='36px Georgia';c.fillText(name,700,690);
+ c.font='25px Georgia';c.fillText('For exposing the double standard in The Speech of Polly Baker',700,755);
+ c.fillStyle='#98652d';c.font='bold 22px Arial';c.fillText('THE VERDICT IS REVERSED',700,835);
+ const a=document.createElement('a');a.download='Master-Confidence-Operator-Certificate.png';a.href=canvas.toDataURL('image/png');a.click();
+}
+document.getElementById('awardDate').textContent='Awarded '+new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+updateProgress();
+const start=window.location.hash.slice(1);
+if(start && order.includes(start) && (start==='home'||start==='stage1'))go(start);
+</script>
+</body>
+</html>
